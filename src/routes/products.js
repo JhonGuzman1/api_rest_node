@@ -9,15 +9,46 @@ router.get('/api/products', async (req,res)=>{
 
 router.post('/api/products/create',async (req,res)=>{
 
-    const product = req.body;
+    const request = req.body;
     
-   await Product.create({
-        Name: product.Name,
-        Description : product.Description,
-        Price: product.Price
+    const product = await Product.create({
+        Name: request.Name,
+        Description : request.Description,
+        Price: request.Price
     });
 
-    res.json({message: "Succes" ,data: product});
+
+    res.json({message: "Succes Create" ,data: product});
+});
+
+router.post('/api/products/edit',async (req,res)=>{
+
+    const request = req.body;
+    
+    const product = await Product.findByIdAndUpdate(
+        { _id: request.Id },
+        {
+            $set:{
+                Name: request.Name,
+                Description : request.Description,
+                Price: request.Price
+            }
+        }
+    );
+
+    res.json({message: "Succes Edit" ,data: product});
+});
+
+
+router.post('/api/products/delete',async (req,res)=>{
+
+    const request = req.body;
+    
+    const product = await Product.findByIdAndDelete(
+        { _id: request.Id }
+    );
+
+    res.json({message: "Succes Edit" ,data: product});
 });
 
 module.exports = router;
