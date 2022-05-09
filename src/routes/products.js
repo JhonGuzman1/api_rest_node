@@ -48,7 +48,7 @@ router.post('/api/products/delete',async (req,res)=>{
         { _id: request.Id }
     );
 
-    res.json({message: "Succes Edit" ,data: product});
+    res.json({message: "Succes Delete" ,data: product});
 });
 
 module.exports = router;
